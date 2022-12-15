@@ -86,16 +86,16 @@ try:
             GearControl = appstring
             print(appstring)
         #If the appdata is non, then the assist level is turned to none
-        if(appstring == 'non'):
+        elif(appstring == 'non'):
             assist = 'none'
         #If the appdata is low, then the assist level is turned to low
-        if(appstring == 'low'):
+        elif(appstring == 'low'):
             assist = 'low'
         #If the appdata is med, then the assist level is turned to medium
-        if(appstring == 'med'):
+        elif(appstring == 'med'):
             assist = 'medium'
         #If the appdata is hig, then the assist level is turned to high
-        if(appstring == 'hig'):
+        elif(appstring == 'hig'):
             assist = 'high'
         #parse motor data
         max_voltage = 29.4
@@ -120,7 +120,7 @@ try:
         if(assist == 'none'):
             motor_control_sock.send('v+00.0')
             motor_control_sock.send('c+00.0')
-        if(assist == 'low'):
+        elif(assist == 'low'):
             speed_target = 8
             duty_cycle = min([99.9, 100 * 0.3*max_voltage/curr_voltage]) #30 percent speed target, compensated
             if(speed < speed_target):
@@ -131,24 +131,24 @@ try:
             motor_control_sock.send(Voutput)
             Coutput = 'c+' + target_current
             motor_control_sock.send(Coutput)
-        if(assist == 'medium'):
+        elif(assist == 'medium'):
             speed_target = 12
             duty_cycle = min([99.9, 100 * 0.6*max_voltage/curr_voltage]) #60 percent speed target, compensated
             if(speed < speed_target):
-                target_current = "14.0" #low torque target
+                target_current = "14.0"
             else:
-                target_current = "03.0" #virtual idle
+                target_current = "03.0"
             Voutput = 'v+' + str(round(duty_cycle,1))
             motor_control_sock.send(Voutput)
             Coutput = 'c+' + target_current
             motor_control_sock.send(Coutput)
-        if(assist == 'high'):
+        elif(assist == 'high'):
             speed_target = 18
             duty_cycle = min([99.9, 100 * 0.9*max_voltage/curr_voltage]) #90 percent speed target, compensated
             if(speed < speed_target):
-                target_current = "18.0" #low torque target
+                target_current = "18.0"
             else:
-                target_current = "04.0" #virtual idle
+                target_current = "04.0"
             Voutput = 'v+' + str(round(duty_cycle,1))
             motor_control_sock.send(Voutput)
             Coutput = 'c+' + target_current
